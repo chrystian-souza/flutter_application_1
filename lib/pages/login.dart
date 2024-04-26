@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/home/home_page.dart'; // Importe a tela inicial do seu projeto
 
 void main() {
   runApp(LoginApp());
@@ -9,24 +10,12 @@ class LoginApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Login',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
       home: LoginPage(),
     );
   }
 }
 
-class LoginPage extends StatefulWidget {
-  @override
-  _LoginPageState createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
-  TextEditingController _usernameController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-
+class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +24,7 @@ class _LoginPageState extends State<LoginPage> {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Color.fromARGB(255, 27, 27, 28), Color.fromARGB(255, 87, 1, 131)],
+            colors: [Color.fromARGB(255, 0, 188, 212), Color.fromARGB(186, 243, 245, 246)],
           ),
         ),
         child: Center(
@@ -55,7 +44,6 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   SizedBox(height: 20),
                   TextField(
-                    controller: _usernameController,
                     decoration: InputDecoration(
                       labelText: 'Username',
                       filled: true,
@@ -67,7 +55,6 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   SizedBox(height: 20),
                   TextField(
-                    controller: _passwordController,
                     decoration: InputDecoration(
                       labelText: 'Password',
                       filled: true,
@@ -81,21 +68,10 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
-                      // Aqui você pode adicionar a lógica de autenticação
-                      String username = _usernameController.text;
-                      String password = _passwordController.text;
-                      // Exemplo de lógica de autenticação simples
-                      if (username == 'admin' && password == 'password') {
-                        // Navegar para a próxima tela ou mostrar uma mensagem de sucesso
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Login Successful')),
-                        );
-                      } else {
-                        // Mostrar mensagem de erro
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Invalid username or password')),
-                        );
-                      }
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => HomePage()),
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
