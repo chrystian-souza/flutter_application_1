@@ -77,20 +77,28 @@ class _HomePageState extends State<HomePage> {
                     itemCount: filteredData.length,
                     itemBuilder: (context, index) {
                       var item = filteredData.elementAt(index);
-                      return Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                              color: Colors.grey), // Cor e estilo da borda
-                          borderRadius: BorderRadius.circular(
-                              8.0), // Raio do canto da borda
-                        ),
-                        margin: EdgeInsets.symmetric(
-                            vertical: 4.0), // Margem entre os itens
-                        child: ListTile(
-                          title: Text(item['name']),
-                          subtitle: Text(
-                              'Bid: ${item['bid']} - Ask: ${item['ask']} - Code: ${item['code']}'),
-                        ),
+                      return Column(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: Colors.grey), // Cor e estilo da borda
+                              borderRadius: BorderRadius.circular(
+                                  8.0), // Raio do canto da borda
+                            ),
+                            margin: EdgeInsets.symmetric(
+                                vertical: 4.0), // Margem entre os itens
+                            child: ListTile(
+                              title: Text(item['name']),
+                              subtitle: Text(
+                                  'Bid: ${item['bid']} - Ask: ${item['ask']} - Code: ${item['code']}'),
+                            ),
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.star), onPressed:() {
+                            },
+                          )
+                        ],
                       );
                     },
                   );
