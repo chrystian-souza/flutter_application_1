@@ -58,6 +58,17 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => FavoritosPage(favoritos: _favoritos),
+                ),
+              );
+            },
+            child: Text('Ir para Favoritos'),
+          ),
           Expanded(
             child: FutureBuilder(
               future: _futureData,
@@ -82,31 +93,29 @@ class _HomePageState extends State<HomePage> {
                       return Column(
                         children: [
                           Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: Colors.grey), 
-                              borderRadius: BorderRadius.circular(
-                                  8.0),
-                            ),
-                            margin: EdgeInsets.symmetric(
-                                vertical: 4.0),
-                            child: ListTile(
-                              title: Text(item['name']),
-                              subtitle: Text(
-                                  'Bid: ${item['bid']} - Ask: ${item['ask']} - Code: ${item['code']}'),
-                            ),
-                          ),
-                          IconButton(
-                            icon: Icon(Icons.favorite),
-                            onPressed: () {
-                              _adicionarAosFavoritos(item['name']);
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => FavoritosPage(favoritos: _favoritos)),
-                              );
-                            },
-                          ),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey),
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              margin: EdgeInsets.symmetric(vertical: 4.0),
+                              child: ListTile(
+                                title: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(item['name']),
+                                      IconButton(
+                                        icon: Icon(Icons.favorite),
+                                        color: _favoritos.contains(item['name']) ? Colors.red: Colors.grey,
+                                        onPressed: () {
+                                          _adicionarAosFavoritos(item['name']);
+                                        },
+                                       
+                                      ),
+                                    ]),
+                                subtitle: Text(
+                                    'Bid: ${item['bid']} - Ask: ${item['ask']} - Code: ${item['code']}'),
+                              )),
                         ],
                       );
                     },
@@ -123,6 +132,7 @@ class _HomePageState extends State<HomePage> {
   void _adicionarAosFavoritos(String item) {
     setState(() {
       _favoritos.add(item);
+      
     });
   }
 }
