@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/services/request_http.dart';
+import 'favoritos_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,6 +23,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late Future<Map<String, dynamic>> _futureData;
   late TextEditingController _searchController;
+  List<String> _favoritos = [];
 
   @override
   void initState() {
@@ -82,12 +84,12 @@ class _HomePageState extends State<HomePage> {
                           Container(
                             decoration: BoxDecoration(
                               border: Border.all(
-                                  color: Colors.grey), // Cor e estilo da borda
+                                  color: Colors.grey), 
                               borderRadius: BorderRadius.circular(
-                                  8.0), // Raio do canto da borda
+                                  8.0),
                             ),
                             margin: EdgeInsets.symmetric(
-                                vertical: 4.0), // Margem entre os itens
+                                vertical: 4.0),
                             child: ListTile(
                               title: Text(item['name']),
                               subtitle: Text(
@@ -95,9 +97,16 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           IconButton(
-                            icon: Icon(Icons.star), onPressed:() {
+                            icon: Icon(Icons.favorite),
+                            onPressed: () {
+                              _adicionarAosFavoritos(item['name']);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => FavoritosPage(favoritos: _favoritos)),
+                              );
                             },
-                          )
+                          ),
                         ],
                       );
                     },
@@ -109,5 +118,11 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
     );
+  }
+
+  void _adicionarAosFavoritos(String item) {
+    setState(() {
+      _favoritos.add(item);
+    });
   }
 }
